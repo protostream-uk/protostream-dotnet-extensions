@@ -8,5 +8,3 @@ All additions must be fully united tested.
 
 ## Authors
 Scott Davies - [scott@protostream.io](mailto:scott@protostream.io)
-
-All additions must be fully united tested.
