@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 
 namespace io.protostream.extensions
@@ -56,6 +57,29 @@ namespace io.protostream.extensions
             }
 
             return arr;
+        }
+
+        /// <summary>
+        /// Converts the string into a Stream
+        /// </summary>
+        /// <performance>10,000 samples, 6-12ms</performance>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static Stream ToStream(this string s)
+        {
+            return s.ToStream(Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// Converts the string into a Stream
+        /// </summary>
+        /// <performance>10,000 samples, 6-12ms</performance>
+        /// <param name="s"></param>
+        /// <param name="encoding">The encoding of the string.</param>
+        /// <returns></returns>
+        public static Stream ToStream(this string s, Encoding encoding)
+        {
+            return new MemoryStream(encoding.GetBytes(s));
         }
     }
 }

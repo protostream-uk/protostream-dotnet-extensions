@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace io.protostream.extensions.performance
 {
@@ -13,9 +14,7 @@ namespace io.protostream.extensions.performance
                 {
                     string test = Guid.NewGuid().ToString().Replace("-", "");
 
-                    byte[] result = test.HexStringToByteArray();
-
-                    string resultEnd = result.ToHexString();
+                    Stream result = test.ToStream();
                 }
                 Console.WriteLine((DateTime.UtcNow - start).TotalMilliseconds + "ms");
             }
