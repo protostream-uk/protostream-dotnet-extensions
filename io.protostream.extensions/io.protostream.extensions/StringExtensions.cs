@@ -59,6 +59,7 @@ namespace io.protostream.extensions
             return sb.ToString();
         }
 
+        #region SHA
         /// <summary>
         /// Converts a string into SHA-512 byte array
         /// </summary>
@@ -84,5 +85,6 @@ namespace io.protostream.extensions
             using HMACSHA512 hmac = new HMACSHA512(keyBytes);
             return hmac.ComputeHash(data);
         }
+        #endregion
     }
 }
