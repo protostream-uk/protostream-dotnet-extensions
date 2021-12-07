@@ -4,13 +4,8 @@ using System.Linq;
 
 namespace io.protostream.extensions.tests
 {
-    public class Tests
+    public class StringExtensionTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         #region HexStringToByteArray
         /// <summary>
         /// An alternative Hex String To Byte Array function that is accurate but slow.
@@ -23,6 +18,16 @@ namespace io.protostream.extensions.tests
                              .Where(x => x % 2 == 0)
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                              .ToArray();
+        }
+
+        [Test]
+        public void Test_HexStringToByteArray_ToAndBack()
+        {
+            string original = Guid.NewGuid().ToString().ToUpper().Replace("-", "");
+            byte[] originalAsBytes = original.HexStringToByteArray();
+            string result = originalAsBytes.ToHexString();
+
+            Assert.AreEqual(original, result);
         }
 
         [Test]
