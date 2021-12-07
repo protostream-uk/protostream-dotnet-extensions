@@ -12,10 +12,6 @@ namespace io.protostream.extensions.performance
                 for (int i = 0; i < 10_000; i++)
                 {
                     string test = Guid.NewGuid().ToString().Replace("-", "");
-
-                    byte[] result = test.HexStringToByteArray();
-
-                    string resultEnd = result.ToHexString();
                 }
                 Console.WriteLine((DateTime.UtcNow - start).TotalMilliseconds + "ms");
             }
