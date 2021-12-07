@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace io.protostream.extensions.performance
 {
@@ -6,15 +7,18 @@ namespace io.protostream.extensions.performance
     {
         static void Main(string[] args)
         {
-            var start = DateTime.UtcNow;
-            for (int i = 0; i < 10_000; i++)
+            for (int j = 0; j < 5; j++)
             {
-                string test = Guid.NewGuid().ToString();
+                var start = DateTime.UtcNow;
+                for (int i = 0; i < 10_000; i++)
+                {
+                    string test = Guid.NewGuid().ToString();
 
-                string result = test.RemoveSpecialCharacters('.', '_');
+                    byte[] result = test.Replace("-", "").HexStringToByteArray();
+                }
+                Console.WriteLine((DateTime.UtcNow - start).TotalMilliseconds + "ms");
             }
 
-            Console.WriteLine((DateTime.UtcNow - start).TotalMilliseconds + "ms");
             Console.ReadKey();
         }
     }
