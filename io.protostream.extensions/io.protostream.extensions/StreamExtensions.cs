@@ -8,7 +8,7 @@ namespace io.protostream.extensions
     public static class StreamExtensions
     {
         /// <summary>
-        /// Converts a stream into a base64 string
+        /// Converts a Stream into a base64 string
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
@@ -21,7 +21,7 @@ namespace io.protostream.extensions
         }
 
         /// <summary>
-        /// Converts the a stream into a UTF8 string
+        /// Converts the a Stream into a UTF8 string
         /// </summary>
         /// <param name="body"></param>
         /// <returns></returns>
