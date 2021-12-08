@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace io.protostream.extensions.tests
@@ -123,6 +124,18 @@ namespace io.protostream.extensions.tests
         {
             string original = "abcdefghijklmnopqrstuvwxyz";
             Assert.AreEqual("abcdefghijklmnopqrstuvwxyz", original.RemoveSpecialCharacters());
+        }
+        #endregion
+
+        #region ToStream
+        [Test]
+        public void Test_ToStream_Valid()
+        {
+            string original = "this is a string";
+
+            Stream stream = original.ToStream();
+
+            Assert.AreEqual(original, stream.GetString());
         }
         #endregion
     }
