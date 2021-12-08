@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <PackageVersion>1.0.0</PackageVersion>
+    <PackageId>io.protostream.extensions</PackageId>
+    <Title>.NET Useful Extensions</Title>
+    <PackageDescription>A number of different extension methods useful in .NET</PackageDescription>
+    <Authors>ProtoScott</Authors>
+    <PackageTags>extensions, strings, .net</PackageTags>
+    <RepositoryUrl>https://github.com/protostream-uk/protostream-dotnet-extensions</RepositoryUrl>
   </PropertyGroup>
-
 </Project>
