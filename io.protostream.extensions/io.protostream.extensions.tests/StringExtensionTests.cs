@@ -127,6 +127,27 @@ namespace io.protostream.extensions.tests
         }
         #endregion
 
+        #region SHA
+        [Test]
+        public void Test_SHA512_HexString()
+        {
+            string text = "test";
+            // "test" sha-512 using online tool https://passwordsgenerator.net/sha512-hash-generator/
+            string expectedResult = "EE26B0DD4AF7E749AA1A8EE3C10AE9923F618980772E473F8819A5D4940E0DB27AC185F8A0E1D5F84F88BC887FD67B143732C304CC5FA9AD8E6F57F50028A8FF";
+            Assert.AreEqual(expectedResult, text.SHA512().ToHexString());
+        }
+
+        [Test]
+        public void Test_HMACSHA512_HexString()
+        {
+            string text = "test";
+            string secretKey = "secret";
+            // "test" sha-512 using online tool https://www.freeformatter.com/hmac-generator.html#ad-output
+            string expectedResult = "f8a4f0a209167bc192a1bffaa01ecdb09e06c57f96530d92ec9ccea0090d290e55071306d6b654f26ae0c8721f7e48a2d7130b881151f2cec8d61d941a6be88a".ToUpper();
+            Assert.AreEqual(expectedResult, text.HMACSHA512(secretKey).ToHexString());
+        }
+        #endregion
+
         #region ToStream
         [Test]
         public void Test_ToStream_Valid()

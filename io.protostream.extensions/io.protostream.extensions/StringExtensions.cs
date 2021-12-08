@@ -1,11 +1,34 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace io.protostream.extensions
 {
     public static class StringExtensions
     {
+        /// <summary>
+        /// Covnerts a hex string into a byte array.
+        /// Inspired by: https://stackoverflow.com/questions/321370/how-can-i-convert-a-hex-string-to-a-byte-array
+        /// </summary>
+        /// <performance>10,000 samples, 9-11ms</performance>
+        /// <param name="hex"></param>
+        /// <returns></returns>
+        public static byte[] HexStringToByteArray(this string hex)
+        {
+            if (hex.Length % 2 == 1)
+                throw new Exception("The binary key cannot have an odd number of digits.");
+
+            byte[] arr = new byte[hex.Length >> 1];
+
+            for (int i = 0; i < hex.Length >> 1; ++i)
+            {
+                arr[i] = (byte)(((hex[i << 1]).GetHexVal() << 4) + (hex[(i << 1) + 1]).GetHexVal());
+            }
+
+            return arr;
+        }
+
         /// <summary>
         /// Returns a string with all special characters removed except those specified in the keep array.
         /// Inspired by: https://stackoverflow.com/questions/1120198/most-efficient-way-to-remove-special-characters-from-string
@@ -37,27 +60,33 @@ namespace io.protostream.extensions
             return sb.ToString();
         }
 
+        #region SHA
         /// <summary>
-        /// Covnerts a hex string into a byte array.
-        /// Inspired by: https://stackoverflow.com/questions/321370/how-can-i-convert-a-hex-string-to-a-byte-array
+        /// Converts a string into SHA-512 byte array
         /// </summary>
-        /// <performance>10,000 samples, 9-11ms</performance>
-        /// <param name="hex"></param>
+        /// <param name="s"></param>
         /// <returns></returns>
-        public static byte[] HexStringToByteArray(this string hex)
+        public static byte[] SHA512(this string s)
         {
-            if (hex.Length % 2 == 1)
-                throw new Exception("The binary key cannot have an odd number of digits.");
-
-            byte[] arr = new byte[hex.Length >> 1];
-
-            for (int i = 0; i < hex.Length >> 1; ++i)
-            {
-                arr[i] = (byte)(((hex[i << 1]).GetHexVal() << 4) + (hex[(i << 1) + 1]).GetHexVal());
-            }
-
-            return arr;
+            byte[] data = Encoding.UTF8.GetBytes(s);
+            using SHA512 shaM = new SHA512Managed();
+            return shaM.ComputeHash(data);
         }
+
+        /// <summary>
+        /// Converts a string into a key-hashed SHA-512 byte array
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="key">The secret key</param>
+        /// <returns></returns>
+        public static byte[] HMACSHA512(this string s, string key)
+        {
+            byte[] data = Encoding.UTF8.GetBytes(s);
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            using HMACSHA512 hmac = new HMACSHA512(keyBytes);
+            return hmac.ComputeHash(data);
+        }
+        #endregion
 
         /// <summary>
         /// Converts the string into a Stream

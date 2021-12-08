@@ -1,4 +1,6 @@
-﻿namespace io.protostream.extensions
+﻿using System.Text;
+
+namespace io.protostream.extensions
 {
     public static class ByteExtensions
     {
@@ -38,6 +40,16 @@
                 result[2 * i + 1] = (char)(val >> 16);
             }
             return new string(result);
+        }
+
+        /// <summary>
+        /// Converts a byte array into a UTF8 string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string ToUtf8String(this byte[] bytes)
+        {
+            return Encoding.UTF8.GetString(bytes);
         }
     }
 }
