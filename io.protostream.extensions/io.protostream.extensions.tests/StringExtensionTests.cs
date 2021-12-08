@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace io.protostream.extensions.tests
 {
@@ -150,13 +151,13 @@ namespace io.protostream.extensions.tests
 
         #region ToStream
         [Test]
-        public void Test_ToStream_Valid()
+        public async Task Test_ToStream_ValidAsync()
         {
             string original = "this is a string";
 
             Stream stream = original.ToStream();
 
-            Assert.AreEqual(original, stream.GetString());
+            Assert.AreEqual(original, await stream.GetString());
         }
         #endregion
     }

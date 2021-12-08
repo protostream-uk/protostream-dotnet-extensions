@@ -8,19 +8,6 @@ namespace io.protostream.extensions
     public static class StreamExtensions
     {
         /// <summary>
-        /// Converts a Stream into a base64 string
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <returns></returns>
-        public static async Task<string> ToBase64String(this Stream stream)
-        {
-            using MemoryStream ms = new MemoryStream();
-            await stream.CopyToAsync(ms);
-            byte[] requestBody = ms.ToArray();
-            return Convert.ToBase64String(requestBody);
-        }
-
-        /// <summary>
         /// Converts the a Stream into a UTF8 string
         /// </summary>
         /// <param name="body"></param>
@@ -31,6 +18,19 @@ namespace io.protostream.extensions
             await body.CopyToAsync(ms);
             byte[] requestBody = ms.ToArray();
             return Encoding.UTF8.GetString(requestBody);
+        }
+
+        /// <summary>
+        /// Converts a Stream into a base64 string
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        public static async Task<string> ToBase64String(this Stream stream)
+        {
+            using MemoryStream ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            byte[] requestBody = ms.ToArray();
+            return Convert.ToBase64String(requestBody);
         }
     }
 }
